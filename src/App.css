@@ -1,0 +1,68 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  color: #646cff;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  color: #888;
+  font-weight: normal;
+  margin-bottom: 2rem;
+}
+
+.students-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.student-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #333;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.student-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(100, 108, 255, 0.2);
+}
+
+.student-card h3 {
+  color: #fff;
+  margin: 0 0 1rem 0;
+}
+
+.student-card p {
+  color: #aaa;
+  margin: 0.5rem 0;
+}
+
+.student-card button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.student-card button:hover {
+  background: #ff6b7a;
+}
+
+.empty-message {
+  color: #888;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
