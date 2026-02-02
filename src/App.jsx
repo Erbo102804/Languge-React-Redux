@@ -1,36 +1,27 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { removeStudent } from './store/studentsSlice'
+import { Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import HomePage from './pages/HomePage'
+import StudentsPage from './pages/StudentsPage'
+import CoursesPage from './pages/CoursesPage'
+import SchedulePage from './pages/SchedulePage'
+import AboutPage from './pages/AboutPage'
 import './App.css'
 
 function App() {
-  const students = useSelector(state => state.students.students)
-  const dispatch = useDispatch()
-
-  const handleRemove = (id) => {
-    dispatch(removeStudent(id))
-  }
-
   return (
     <div className="app">
-      <h1>Список студентов</h1>
-      <h2>React Redux Demo</h2>
-
-      <div className="students-list">
-        {students.map(student => (
-          <div key={student.id} className="student-card">
-            <h3>{student.name}</h3>
-            <p>Возраст: {student.age} лет</p>
-            <p>Курс: {student.course}</p>
-            <button onClick={() => handleRemove(student.id)}>
-              Удалить
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {students.length === 0 && (
-        <p className="empty-message">Список студентов пуст</p>
-      )}
+      <Header />
+      <main className="main">
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/students" element={<StudentsPage />} />
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/schedule" element={<SchedulePage />} />
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </div>
+      </main>
     </div>
   )
 }

@@ -1,0 +1,79 @@
+.schedule-page {
+  padding: 2rem 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+}
+
+.page-header__subtitle {
+  color: #888;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.schedule-table-wrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1e1e2f 0%, #252540 100%);
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+}
+
+.schedule-table th {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.schedule-table td {
+  color: #ccc;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.schedule-table tbody tr {
+  transition: background 0.3s ease;
+}
+
+.schedule-table tbody tr:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.schedule-course {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .schedule-table th,
+  .schedule-table td {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
