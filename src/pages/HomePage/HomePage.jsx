@@ -1,9 +1,13 @@
-import StudentsList from '../../components/StudentsList'
+import { Link } from 'react-router-dom'
+import CoursesList from '../../components/CoursesList'
+import NewsList from '../../components/NewsList'
+import TeachersList from '../../components/TeachersList'
 import './HomePage.css'
 
 function HomePage() {
   return (
     <div className="home-page">
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero__content">
           <h1 className="hero__title">
@@ -14,12 +18,12 @@ function HomePage() {
             Отслеживайте прогресс студентов, управляйте курсами и расписанием.
           </p>
           <div className="hero__actions">
-            <button className="hero__btn hero__btn--primary">
-              Начать обучение
-            </button>
-            <button className="hero__btn hero__btn--secondary">
+            <Link to="/courses" className="hero__btn hero__btn--primary">
+              Смотреть курсы
+            </Link>
+            <Link to="/about" className="hero__btn hero__btn--secondary">
               Узнать больше
-            </button>
+            </Link>
           </div>
         </div>
         <div className="hero__stats">
@@ -38,7 +42,14 @@ function HomePage() {
         </div>
       </section>
 
-      <StudentsList />
+      {/* Courses Section - LIST (с переходом на DETAIL по клику) */}
+      <CoursesList limit={3} />
+
+      {/* News Section */}
+      <NewsList limit={4} />
+
+      {/* Teachers Section */}
+      <TeachersList />
     </div>
   )
 }

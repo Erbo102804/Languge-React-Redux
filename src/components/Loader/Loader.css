@@ -1,0 +1,46 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  min-height: 200px;
+}
+
+.loader__spinner {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.loader__circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  animation: bounce 0.6s infinite alternate;
+}
+
+.loader__circle:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader__circle:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+}
+
+.loader__text {
+  margin-top: 1.5rem;
+  color: #888;
+  font-size: 1rem;
+}

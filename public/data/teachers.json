@@ -1,0 +1,44 @@
+{
+  "teachers": [
+    {
+      "id": 1,
+      "name": "Алексей Петров",
+      "position": "Senior Frontend Developer",
+      "bio": "10+ лет опыта в веб-разработке. Работал в Яндекс, VK. Специализация: React, TypeScript.",
+      "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+      "courses": 5,
+      "students": 3500,
+      "rating": 4.9
+    },
+    {
+      "id": 2,
+      "name": "Мария Сидорова",
+      "position": "Tech Lead",
+      "bio": "8 лет в IT. Эксперт по архитектуре приложений и управлению состоянием.",
+      "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+      "courses": 3,
+      "students": 2100,
+      "rating": 4.8
+    },
+    {
+      "id": 3,
+      "name": "Дмитрий Волков",
+      "position": "Fullstack Developer",
+      "bio": "12 лет опыта. Автор книги по JavaScript. Спикер конференций.",
+      "avatar": "https://randomuser.me/api/portraits/men/52.jpg",
+      "courses": 4,
+      "students": 4200,
+      "rating": 4.9
+    },
+    {
+      "id": 4,
+      "name": "Елена Козлова",
+      "position": "Frontend Architect",
+      "bio": "7 лет опыта. TypeScript евангелист. Контрибьютор open-source.",
+      "avatar": "https://randomuser.me/api/portraits/women/68.jpg",
+      "courses": 2,
+      "students": 1800,
+      "rating": 4.7
+    }
+  ]
+}
