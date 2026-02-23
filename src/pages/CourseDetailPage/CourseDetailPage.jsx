@@ -1,22 +1,29 @@
-import { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCourseById, clearCurrentCourse } from '../../store/coursesSlice'
+import { fetchCourseById, clearCurrentCourse, deleteCourse } from '../../store/coursesSlice'
+import CourseForm from '../../components/CourseForm'
 import Loader from '../../components/Loader'
 import './CourseDetailPage.css'
 
 function CourseDetailPage() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { currentCourse, loading, error } = useSelector(state => state.courses)
 
+  const [showEditForm, setShowEditForm] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+
   useEffect(() => {
     dispatch(fetchCourseById(id))
-
-    return () => {
-      dispatch(clearCurrentCourse())
-    }
+    return () => { dispatch(clearCurrentCourse()) }
   }, [dispatch, id])
+
+  const handleDelete = () => {
+    dispatch(deleteCourse(currentCourse.id))
+    navigate('/courses')
+  }
 
   if (loading) {
     return (
@@ -32,23 +39,35 @@ function CourseDetailPage() {
         <div className="error-container">
           <h2>Ошибка</h2>
           <p>{error}</p>
-          <Link to="/courses" className="back-btn">
-            Вернуться к курсам
-          </Link>
+          <Link to="/courses" className="back-btn">Вернуться к курсам</Link>
         </div>
       </div>
     )
   }
 
-  if (!currentCourse) {
-    return null
-  }
+  if (!currentCourse) return null
 
   return (
     <div className="course-detail-page">
-      <Link to="/courses" className="course-detail__back">
-        ← Назад к курсам
-      </Link>
+      <div className="course-detail__nav">
+        <Link to="/courses" className="course-detail__back">
+          ← Назад к курсам
+        </Link>
+        <div className="course-detail__crud-actions">
+          <button
+            className="crud-btn crud-btn--edit"
+            onClick={() => setShowEditForm(true)}
+          >
+            ✏️ Редактировать
+          </button>
+          <button
+            className="crud-btn crud-btn--delete"
+            onClick={() => setShowDeleteConfirm(true)}
+          >
+            🗑️ Удалить
+          </button>
+        </div>
+      </div>
 
       <div className="course-detail">
         <div className="course-detail__header">
@@ -106,14 +125,38 @@ function CourseDetailPage() {
             <h2 className="course-detail__section-title">Что вы изучите</h2>
             <div className="course-detail__topics">
               {currentCourse.topics.map((topic, index) => (
-                <span key={index} className="course-detail__topic">
-                  {topic}
-                </span>
+                <span key={index} className="course-detail__topic">{topic}</span>
               ))}
             </div>
           </section>
         </div>
       </div>
+
+      {/* Форма редактирования */}
+      {showEditForm && (
+        <CourseForm
+          course={currentCourse}
+          onClose={() => setShowEditForm(false)}
+        />
+      )}
+
+      {/* Подтверждение удаления */}
+      {showDeleteConfirm && (
+        <div className="modal-overlay" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="delete-confirm" onClick={e => e.stopPropagation()}>
+            <h3>Удалить курс?</h3>
+            <p>«{currentCourse.title}» будет удалён. Это действие нельзя отменить.</p>
+            <div className="delete-confirm__btns">
+              <button className="crud-btn crud-btn--cancel" onClick={() => setShowDeleteConfirm(false)}>
+                Отмена
+              </button>
+              <button className="crud-btn crud-btn--delete" onClick={handleDelete}>
+                Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

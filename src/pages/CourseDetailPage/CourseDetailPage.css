@@ -3,19 +3,122 @@
   min-height: 60vh;
 }
 
+.course-detail__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .course-detail__back {
   display: inline-flex;
   align-items: center;
   color: #667eea;
   text-decoration: none;
   font-weight: 500;
-  margin-bottom: 2rem;
   transition: all 0.3s ease;
 }
 
 .course-detail__back:hover {
   color: #764ba2;
   transform: translateX(-5px);
+}
+
+.course-detail__crud-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* CRUD buttons */
+.crud-btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.crud-btn--edit {
+  background: rgba(102, 126, 234, 0.15);
+  color: #667eea;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.crud-btn--edit:hover {
+  background: rgba(102, 126, 234, 0.25);
+  transform: translateY(-2px);
+}
+
+.crud-btn--delete {
+  background: rgba(255, 71, 87, 0.15);
+  color: #ff4757;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+.crud-btn--delete:hover {
+  background: rgba(255, 71, 87, 0.25);
+  transform: translateY(-2px);
+}
+
+.crud-btn--cancel {
+  background: rgba(255, 255, 255, 0.08);
+  color: #aaa;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crud-btn--cancel:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Delete confirm modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.delete-confirm {
+  background: linear-gradient(145deg, #1e1e2f 0%, #252540 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.delete-confirm h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+}
+
+.delete-confirm p {
+  color: #888;
+  margin: 0 0 2rem;
+  line-height: 1.5;
+}
+
+.delete-confirm__btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .course-detail {

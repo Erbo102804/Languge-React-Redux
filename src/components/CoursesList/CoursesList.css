@@ -3,8 +3,12 @@
 }
 
 .courses-list__header {
-  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .courses-list__title {
@@ -169,6 +173,142 @@
 .courses-list__more-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
+
+/* Add button */
+.courses-list__add-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.courses-list__add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+/* Card wrapper with actions */
+.course-card-wrapper {
+  position: relative;
+}
+
+.course-card__actions {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  gap: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.course-card-wrapper:hover .course-card__actions {
+  opacity: 1;
+}
+
+.course-card__action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.course-card__action-btn--edit {
+  background: rgba(102, 126, 234, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.course-card__action-btn--edit:hover {
+  background: #667eea;
+  transform: scale(1.1);
+}
+
+.course-card__action-btn--delete {
+  background: rgba(255, 71, 87, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.course-card__action-btn--delete:hover {
+  background: #ff4757;
+  transform: scale(1.1);
+}
+
+/* Delete confirm */
+.delete-confirm {
+  background: linear-gradient(145deg, #1e1e2f 0%, #252540 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+.delete-confirm h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+}
+
+.delete-confirm p {
+  color: #888;
+  margin: 0 0 2rem;
+}
+
+.delete-confirm__btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.7rem 1.75rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.btn--cancel {
+  background: rgba(255, 255, 255, 0.08);
+  color: #aaa;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn--cancel:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.btn--delete {
+  background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+.btn--delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.5);
 }
 
 /* Error message */
