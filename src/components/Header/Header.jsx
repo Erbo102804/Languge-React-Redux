@@ -1,12 +1,22 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../../store/authSlice'
 import './Header.css'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { isAuthenticated, user } = useSelector(state => state.auth)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate('/')
   }
 
   return (
@@ -90,12 +100,25 @@ function Header() {
         </nav>
 
         <div className="header__actions">
-          <NavLink to="/login" className="header__btn header__btn--login">
-            Войти
-          </NavLink>
-          <NavLink to="/register" className="header__btn header__btn--register">
-            Регистрация
-          </NavLink>
+          {isAuthenticated ? (
+            <div className="header__user">
+              <span className="header__user-name">
+                👤 {user?.name}
+              </span>
+              <button className="header__btn header__btn--logout" onClick={handleLogout}>
+                Выйти
+              </button>
+            </div>
+          ) : (
+            <>
+              <NavLink to="/login" className="header__btn header__btn--login">
+                Войти
+              </NavLink>
+              <NavLink to="/register" className="header__btn header__btn--register">
+                Регистрация
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </header>

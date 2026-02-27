@@ -6,6 +6,8 @@ import CoursesPage from './pages/CoursesPage'
 import CourseDetailPage from './pages/CourseDetailPage'
 import SchedulePage from './pages/SchedulePage'
 import AboutPage from './pages/AboutPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import './App.css'
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
             <Route path="/courses/:id" element={<CourseDetailPage />} />
             <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </div>
       </main>
