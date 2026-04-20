@@ -89,24 +89,28 @@ function CoursesList({ limit }) {
                   <span className="course-card__price">{course.price.toLocaleString()} ₽</span>
                   <span className="course-card__students">{course.students} студентов</span>
                 </div>
+
+                {/* Like & Favorite — always visible */}
+                <div className="course-card__social">
+                  <button
+                    className={`card-social-btn${likes[course.id] ? ' card-social-btn--liked' : ''}`}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(toggleLike(course.id)) }}
+                    title={likes[course.id] ? 'Убрать лайк' : 'Нравится'}
+                  >
+                    {likes[course.id] ? '❤️' : '🤍'} {likes[course.id] ? 'Нравится' : 'Нравится'}
+                  </button>
+                  <button
+                    className={`card-social-btn${favorites.includes(course.id) ? ' card-social-btn--fav' : ''}`}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(toggleFavorite(course.id)) }}
+                    title={favorites.includes(course.id) ? 'Убрать из избранного' : 'В избранное'}
+                  >
+                    {favorites.includes(course.id) ? '★' : '☆'} {favorites.includes(course.id) ? 'В избранном' : 'Избранное'}
+                  </button>
+                </div>
               </div>
             </Link>
 
             <div className="course-card__actions">
-              <button
-                className={`course-card__action-btn course-card__action-btn--like${likes[course.id] ? ' liked' : ''}`}
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(toggleLike(course.id)) }}
-                title={likes[course.id] ? 'Убрать лайк' : 'Нравится'}
-              >
-                {likes[course.id] ? '❤️' : '🤍'}
-              </button>
-              <button
-                className={`course-card__action-btn course-card__action-btn--fav${favorites.includes(course.id) ? ' favorited' : ''}`}
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(toggleFavorite(course.id)) }}
-                title={favorites.includes(course.id) ? 'Убрать из избранного' : 'В избранное'}
-              >
-                {favorites.includes(course.id) ? '★' : '☆'}
-              </button>
               <button
                 className="course-card__action-btn course-card__action-btn--edit"
                 onClick={(e) => handleEdit(e, course)}

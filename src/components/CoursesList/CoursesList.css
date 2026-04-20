@@ -332,20 +332,46 @@
   }
 }
 
-.course-card__action-btn--like,
-.course-card__action-btn--fav {
-  font-size: 1.1rem;
-  background: rgba(255,255,255,0.92);
+/* Social buttons inside card — always visible */
+.course-card__social {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.course-card__action-btn--like.liked {
-  background: #fff5f5;
+.card-social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #aaa;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
 }
 
-.course-card__action-btn--fav {
-  color: #d97706;
+.card-social-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.course-card__action-btn--fav.favorited {
-  background: #fffbeb;
+.card-social-btn--liked {
+  background: rgba(229, 62, 62, 0.15);
+  border-color: rgba(229, 62, 62, 0.4);
+  color: #fc8181;
+}
+
+.card-social-btn--fav {
+  background: rgba(217, 119, 6, 0.15);
+  border-color: rgba(217, 119, 6, 0.4);
+  color: #f6ad55;
 }
