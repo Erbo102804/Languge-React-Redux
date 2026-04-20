@@ -2,6 +2,15 @@ import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCourseById, clearCurrentCourse, deleteCourse } from '../../store/coursesSlice'
+import {
+  toggleLike,
+  toggleFavorite,
+  addRating,
+  selectIsLiked,
+  selectIsFavorite,
+  selectAverageRating,
+  selectUserRating,
+} from '../../store/interactionsSlice'
 import CourseForm from '../../components/CourseForm'
 import Loader from '../../components/Loader'
 import './CourseDetailPage.css'
@@ -11,6 +20,12 @@ function CourseDetailPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { currentCourse, loading, error } = useSelector(state => state.courses)
+
+  const isLiked = useSelector(selectIsLiked(Number(id)))
+  const isFavorite = useSelector(selectIsFavorite(Number(id)))
+  const avgRating = useSelector(selectAverageRating(Number(id)))
+  const userRating = useSelector(selectUserRating(Number(id)))
+  const [hoverStar, setHoverStar] = useState(0)
 
   const [showEditForm, setShowEditForm] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
@@ -110,6 +125,50 @@ function CourseDetailPage() {
             <button className="course-detail__enroll-btn">
               Записаться на курс
             </button>
+
+            {/* Interactions: Like, Favorite, Rating */}
+            <div className="course-detail__interactions">
+              <button
+                className={`interaction-btn like-btn${isLiked ? ' active' : ''}`}
+                onClick={() => dispatch(toggleLike(currentCourse.id))}
+                title={isLiked ? 'Убрать лайк' : 'Поставить лайк'}
+              >
+                {isLiked ? '❤️' : '🤍'} {isLiked ? 'Понравилось' : 'Нравится'}
+              </button>
+
+              <button
+                className={`interaction-btn favorite-btn${isFavorite ? ' active' : ''}`}
+                onClick={() => dispatch(toggleFavorite(currentCourse.id))}
+                title={isFavorite ? 'Убрать из избранного' : 'В избранное'}
+              >
+                {isFavorite ? '★' : '☆'} {isFavorite ? 'В избранном' : 'В избранное'}
+              </button>
+            </div>
+
+            <div className="course-detail__rating-block">
+              <div className="rating-label">
+                Ваша оценка:
+              </div>
+              <div className="stars-input">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    className={`star-btn${(hoverStar || userRating) >= star ? ' filled' : ''}`}
+                    onMouseEnter={() => setHoverStar(star)}
+                    onMouseLeave={() => setHoverStar(0)}
+                    onClick={() => dispatch(addRating({ courseId: currentCourse.id, rating: star }))}
+                    title={`Оценить на ${star}`}
+                  >
+                    ★
+                  </button>
+                ))}
+              </div>
+              {avgRating && (
+                <div className="rating-avg">
+                  Средняя оценка: <strong>{avgRating}</strong> / 5
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

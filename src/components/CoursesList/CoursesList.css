@@ -331,3 +331,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+.course-card__action-btn--like,
+.course-card__action-btn--fav {
+  font-size: 1.1rem;
+  background: rgba(255,255,255,0.92);
+}
+
+.course-card__action-btn--like.liked {
+  background: #fff5f5;
+}
+
+.course-card__action-btn--fav {
+  color: #d97706;
+}
+
+.course-card__action-btn--fav.favorited {
+  background: #fffbeb;
+}

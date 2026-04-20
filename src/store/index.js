@@ -4,6 +4,7 @@ import coursesReducer from './coursesSlice'
 import newsReducer from './newsSlice'
 import teachersReducer from './teachersSlice'
 import authReducer from './authSlice'
+import interactionsReducer from './interactionsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     courses: coursesReducer,
     news: newsReducer,
     teachers: teachersReducer,
-    auth: authReducer
+    auth: authReducer,
+    interactions: interactionsReducer,
   }
 })

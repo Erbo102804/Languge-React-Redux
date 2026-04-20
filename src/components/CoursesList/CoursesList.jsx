@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchCourses, deleteCourse } from '../../store/coursesSlice'
+import { toggleLike, toggleFavorite } from '../../store/interactionsSlice'
 import CourseForm from '../CourseForm'
 import Loader from '../Loader'
 import './CoursesList.css'
@@ -9,6 +10,7 @@ import './CoursesList.css'
 function CoursesList({ limit }) {
   const dispatch = useDispatch()
   const { courses, loading, error } = useSelector(state => state.courses)
+  const { likes, favorites } = useSelector(state => state.interactions)
 
   const [showForm, setShowForm] = useState(false)
   const [editCourse, setEditCourse] = useState(null)
@@ -91,6 +93,20 @@ function CoursesList({ limit }) {
             </Link>
 
             <div className="course-card__actions">
+              <button
+                className={`course-card__action-btn course-card__action-btn--like${likes[course.id] ? ' liked' : ''}`}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(toggleLike(course.id)) }}
+                title={likes[course.id] ? 'Убрать лайк' : 'Нравится'}
+              >
+                {likes[course.id] ? '❤️' : '🤍'}
+              </button>
+              <button
+                className={`course-card__action-btn course-card__action-btn--fav${favorites.includes(course.id) ? ' favorited' : ''}`}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(toggleFavorite(course.id)) }}
+                title={favorites.includes(course.id) ? 'Убрать из избранного' : 'В избранное'}
+              >
+                {favorites.includes(course.id) ? '★' : '☆'}
+              </button>
               <button
                 className="course-card__action-btn course-card__action-btn--edit"
                 onClick={(e) => handleEdit(e, course)}

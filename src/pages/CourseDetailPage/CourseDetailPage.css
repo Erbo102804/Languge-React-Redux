@@ -365,3 +365,96 @@
     text-align: center;
   }
 }
+
+/* ── Interactions ── */
+.course-detail__interactions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.interaction-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #4a5568;
+}
+
+.interaction-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.like-btn.active {
+  border-color: #fc8181;
+  color: #e53e3e;
+  background: #fff5f5;
+}
+
+.favorite-btn.active {
+  border-color: #f6ad55;
+  color: #d97706;
+  background: #fffbeb;
+}
+
+/* ── Star rating ── */
+.course-detail__rating-block {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.rating-label {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.stars-input {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #cbd5e0;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s, transform 0.1s;
+}
+
+.star-btn:hover,
+.star-btn.filled {
+  color: #f6ad55;
+}
+
+.star-btn:active {
+  transform: scale(1.2);
+}
+
+.rating-avg {
+  font-size: 0.9rem;
+  color: #4a5568;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+}
+
+.rating-avg strong {
+  color: #d97706;
+}
