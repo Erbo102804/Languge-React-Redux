@@ -148,7 +148,7 @@ function CourseForm({ course, onClose }) {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Цена (₽) *</label>
+              <label className="form-label">Цена (сом) *</label>
               <input
                 className={`form-input ${errors.price ? 'form-input--error' : ''}`}
                 name="price"

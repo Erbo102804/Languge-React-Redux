@@ -53,7 +53,7 @@ function ProfilePage() {
           </div>
           <div className="profile-card__stat">
             <span className="profile-card__stat-value">
-              {totalPrice.toLocaleString()} ₽
+              {totalPrice.toLocaleString()} сом
             </span>
             <span className="profile-card__stat-label">Стоимость</span>
           </div>

@@ -84,7 +84,7 @@ function CoursesList({ limit }) {
                   <span className="course-card__rating">★ {course.rating}</span>
                 </div>
                 <div className="course-card__footer">
-                  <span className="course-card__price">{course.price.toLocaleString()} ₽</span>
+                  <span className="course-card__price">{course.price.toLocaleString()} сом</span>
                   <span className="course-card__students">{course.students} студентов</span>
                 </div>
               </div>

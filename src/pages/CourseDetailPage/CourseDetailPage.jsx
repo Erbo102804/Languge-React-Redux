@@ -140,7 +140,7 @@ function CourseDetailPage() {
 
             <div className="course-detail__price-block">
               <span className="course-detail__price">
-                {currentCourse.price.toLocaleString()} ₽
+                {currentCourse.price.toLocaleString()} сом
               </span>
               <span className="course-detail__students">
                 {currentCourse.students} студентов уже обучаются
