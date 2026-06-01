@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCourseById, clearCurrentCourse, deleteCourse } from '../../store/coursesSlice'
+import { fetchCourseById, clearCurrentCourse, deleteCourse } from '../../redux/slices/coursesSlice'
 import {
   enroll,
   unenroll,
-  selectIsEnrolled,
-  getScheduleSlot
-} from '../../store/enrollmentsSlice'
-import { pushNotification } from '../../store/notificationsSlice'
+  selectIsEnrolled
+} from '../../redux/slices/enrollmentsSlice'
+import { getScheduleSlot } from '../../utils/schedule'
+import { formatPrice } from '../../utils/format'
+import { pushNotification } from '../../redux/slices/notificationsSlice'
 import CourseForm from '../../components/CourseForm'
 import Loader from '../../components/Loader'
 import ChatWidget from '../../components/ChatWidget'
@@ -143,7 +144,7 @@ function CourseDetailPage() {
 
             <div className="course-detail__price-block">
               <span className="course-detail__price">
-                {currentCourse.price.toLocaleString()} сом
+                {formatPrice(currentCourse.price)}
               </span>
               <span className="course-detail__students">
                 {currentCourse.students} студентов уже обучаются

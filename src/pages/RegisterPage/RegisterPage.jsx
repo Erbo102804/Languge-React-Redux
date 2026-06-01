@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { register, clearError } from '../../store/authSlice'
+import { register, clearError } from '../../redux/slices/authSlice'
 import './RegisterPage.css'
 
 function RegisterPage() {

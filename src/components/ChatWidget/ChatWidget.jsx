@@ -5,7 +5,7 @@ import {
   sendUserMessage,
   sendTeacherReply,
   selectChat
-} from '../../store/chatSlice'
+} from '../../redux/slices/chatSlice'
 import './ChatWidget.css'
 
 const TEACHER_REPLIES = [

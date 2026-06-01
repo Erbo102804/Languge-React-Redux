@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { removeStudent } from '../../store/studentsSlice'
+import { removeStudent } from '../../redux/slices/studentsSlice'
 import './StudentsList.css'
 
 function StudentsList() {

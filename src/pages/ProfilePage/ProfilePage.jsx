@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import { selectUserEnrollments, unenroll } from '../../store/enrollmentsSlice'
-import { pushNotification } from '../../store/notificationsSlice'
+import { selectUserEnrollments, unenroll } from '../../redux/slices/enrollmentsSlice'
+import { pushNotification } from '../../redux/slices/notificationsSlice'
 import './ProfilePage.css'
 
 const DAY_ORDER = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']

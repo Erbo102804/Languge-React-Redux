@@ -1,15 +1,28 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchCourses, deleteCourse } from '../../store/coursesSlice'
+import { fetchCourses, deleteCourse } from '../../redux/slices/coursesSlice'
+import {
+  setCoursesSearch,
+  setCoursesLevel,
+  resetCoursesFilters,
+  selectFilteredCourses
+} from '../../redux/slices/uiSlice'
+import { useNotify } from '../../hooks/useNotify'
+import { formatPrice } from '../../utils/format'
 import CourseForm from '../CourseForm'
 import Loader from '../Loader'
 import './CoursesList.css'
 
+const LEVELS = ['all', 'Начинающий', 'Средний', 'Продвинутый']
+
 function CoursesList({ limit }) {
   const dispatch = useDispatch()
-  const { courses, loading, error } = useSelector(state => state.courses)
+  const notify = useNotify()
+  const { courses, loading, error, mutating } = useSelector(state => state.courses)
   const { isAuthenticated } = useSelector(state => state.auth)
+  const { coursesSearch, coursesLevel } = useSelector(state => state.ui)
+  const filtered = useSelector(selectFilteredCourses)
 
   const [showForm, setShowForm] = useState(false)
   const [editCourse, setEditCourse] = useState(null)
@@ -34,8 +47,14 @@ function CoursesList({ limit }) {
     setDeleteConfirm(id)
   }
 
-  const confirmDelete = () => {
-    dispatch(deleteCourse(deleteConfirm))
+  const confirmDelete = async () => {
+    const id = deleteConfirm
+    try {
+      await dispatch(deleteCourse(id)).unwrap()
+      notify('Курс удалён', 'info')
+    } catch (err) {
+      notify('Ошибка удаления: ' + err, 'error')
+    }
     setDeleteConfirm(null)
   }
 
@@ -47,8 +66,10 @@ function CoursesList({ limit }) {
   if (loading) return <Loader text="Загрузка курсов..." />
   if (error) return <div className="error-message">Ошибка: {error}</div>
 
-  const displayedCourses = limit ? courses.slice(0, limit) : courses
+  const sourceList = limit ? courses : filtered
+  const displayedCourses = limit ? sourceList.slice(0, limit) : sourceList
   const title = limit ? 'Популярные курсы' : 'Все курсы'
+  const isFiltering = !limit && (coursesSearch.trim() || coursesLevel !== 'all')
 
   return (
     <section className="courses-list">
@@ -63,12 +84,65 @@ function CoursesList({ limit }) {
           <button
             className="courses-list__add-btn"
             onClick={() => { setEditCourse(null); setShowForm(true) }}
+            disabled={mutating}
           >
             + Добавить курс
           </button>
         )}
       </div>
 
+      {!limit && (
+        <div className="courses-list__filters">
+          <input
+            type="search"
+            className="courses-list__search"
+            placeholder="Поиск по названию, описанию или преподавателю..."
+            value={coursesSearch}
+            onChange={(e) => dispatch(setCoursesSearch(e.target.value))}
+          />
+          <div className="courses-list__levels">
+            {LEVELS.map(lvl => (
+              <button
+                key={lvl}
+                type="button"
+                className={`courses-list__level-btn ${coursesLevel === lvl ? 'courses-list__level-btn--active' : ''}`}
+                onClick={() => dispatch(setCoursesLevel(lvl))}
+              >
+                {lvl === 'all' ? 'Все' : lvl}
+              </button>
+            ))}
+            {isFiltering && (
+              <button
+                type="button"
+                className="courses-list__reset"
+                onClick={() => dispatch(resetCoursesFilters())}
+              >
+                Сбросить
+              </button>
+            )}
+          </div>
+          {isFiltering && (
+            <div className="courses-list__count">
+              Найдено: {filtered.length}
+            </div>
+          )}
+        </div>
+      )}
+
+      {displayedCourses.length === 0 && !limit ? (
+        <div className="courses-list__empty">
+          <p>По вашему запросу курсы не найдены.</p>
+          {isFiltering && (
+            <button
+              type="button"
+              className="courses-list__empty-btn"
+              onClick={() => dispatch(resetCoursesFilters())}
+            >
+              Сбросить фильтры
+            </button>
+          )}
+        </div>
+      ) : (
       <div className="courses-list__grid">
         {displayedCourses.map(course => (
           <div key={course.id} className="course-card-wrapper">
@@ -85,7 +159,7 @@ function CoursesList({ limit }) {
                   <span className="course-card__rating">★ {course.rating}</span>
                 </div>
                 <div className="course-card__footer">
-                  <span className="course-card__price">{course.price.toLocaleString()} сом</span>
+                  <span className="course-card__price">{formatPrice(course.price)}</span>
                   <span className="course-card__students">{course.students} студентов</span>
                 </div>
               </div>
@@ -112,6 +186,8 @@ function CoursesList({ limit }) {
           </div>
         ))}
       </div>
+
+      )}
 
       {limit && courses.length > limit && (
         <div className="courses-list__more">

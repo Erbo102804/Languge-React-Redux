@@ -1,15 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Toast from './components/Toast'
-import HomePage from './pages/HomePage'
-import StudentsPage from './pages/StudentsPage'
-import CoursesPage from './pages/CoursesPage'
-import CourseDetailPage from './pages/CourseDetailPage'
-import SchedulePage from './pages/SchedulePage'
-import AboutPage from './pages/AboutPage'
-import LoginPage from './pages/LoginPage'
-import RegisterPage from './pages/RegisterPage'
-import ProfilePage from './pages/ProfilePage'
+import AppRoutes from './routes/AppRoutes'
 import './App.css'
 
 function App() {
@@ -19,17 +10,7 @@ function App() {
       <Toast />
       <main className="main">
         <div className="container">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/students" element={<StudentsPage />} />
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/courses/:id" element={<CourseDetailPage />} />
-            <Route path="/schedule" element={<SchedulePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Routes>
+          <AppRoutes />
         </div>
       </main>
     </div>

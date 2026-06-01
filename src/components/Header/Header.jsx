@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../../store/authSlice'
+import { logout } from '../../redux/slices/authSlice'
 import './Header.css'
 
 function Header() {
