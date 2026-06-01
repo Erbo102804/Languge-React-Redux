@@ -62,12 +62,104 @@
 }
 
 .schedule-course {
+  display: inline-block;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 0.35rem 0.85rem;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
   color: #fff;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+a.schedule-course:hover {
+  transform: translateY(-2px);
+}
+
+.schedule-section {
+  margin-bottom: 3rem;
+}
+
+.schedule-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.schedule-section__title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.schedule-section__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 0.5rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.schedule-section__link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.schedule-section__link:hover {
+  color: #764ba2;
+}
+
+.schedule-table-wrapper--my {
+  border-color: rgba(46, 213, 115, 0.25);
+}
+
+.schedule-row--my {
+  background: rgba(46, 213, 115, 0.04);
+}
+
+.schedule-empty {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1e1e2f 0%, #252540 100%);
+  border: 1px dashed rgba(102, 126, 234, 0.25);
+}
+
+.schedule-empty p {
+  color: #888;
+  margin: 0 0 1.25rem;
+}
+
+.schedule-empty__btn {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.schedule-empty__btn:hover {
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {

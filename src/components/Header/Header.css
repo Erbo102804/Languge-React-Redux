@@ -115,6 +115,16 @@
   color: #fff;
   font-weight: 500;
   font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.header__user-name:hover,
+.header__user-name.active {
+  background: rgba(102, 126, 234, 0.15);
+  color: #667eea;
 }
 
 .header__btn {

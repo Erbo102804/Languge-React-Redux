@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCourseById, clearCurrentCourse, deleteCourse } from '../../store/coursesSlice'
+import {
+  enroll,
+  unenroll,
+  selectIsEnrolled,
+  getScheduleSlot
+} from '../../store/enrollmentsSlice'
+import { pushNotification } from '../../store/notificationsSlice'
 import CourseForm from '../../components/CourseForm'
 import Loader from '../../components/Loader'
 import './CourseDetailPage.css'
@@ -11,6 +18,8 @@ function CourseDetailPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { currentCourse, loading, error } = useSelector(state => state.courses)
+  const { user, isAuthenticated } = useSelector(state => state.auth)
+  const isEnrolled = useSelector(selectIsEnrolled(user?.id, id))
 
   const [showEditForm, setShowEditForm] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
@@ -23,6 +32,31 @@ function CourseDetailPage() {
   const handleDelete = () => {
     dispatch(deleteCourse(currentCourse.id))
     navigate('/courses')
+  }
+
+  const handleEnroll = () => {
+    if (!isAuthenticated) {
+      dispatch(pushNotification({
+        text: 'Войдите в аккаунт, чтобы записаться на курс',
+        type: 'info'
+      }))
+      navigate('/login')
+      return
+    }
+    dispatch(enroll({ userId: user.id, course: currentCourse }))
+    const slot = getScheduleSlot(currentCourse.id)
+    dispatch(pushNotification({
+      text: `Вы записались на курс «${currentCourse.title}». Занятия: ${slot.day}, ${slot.time}`,
+      type: 'success'
+    }))
+  }
+
+  const handleUnenroll = () => {
+    dispatch(unenroll({ userId: user.id, courseId: currentCourse.id }))
+    dispatch(pushNotification({
+      text: `Вы отписались от курса «${currentCourse.title}»`,
+      type: 'info'
+    }))
   }
 
   if (loading) {
@@ -46,6 +80,8 @@ function CourseDetailPage() {
   }
 
   if (!currentCourse) return null
+
+  const slot = getScheduleSlot(currentCourse.id)
 
   return (
     <div className="course-detail-page">
@@ -96,6 +132,10 @@ function CourseDetailPage() {
                 <span className="meta-label">Рейтинг</span>
                 <span className="meta-value">★ {currentCourse.rating}</span>
               </div>
+              <div className="course-detail__meta-item">
+                <span className="meta-label">Расписание</span>
+                <span className="meta-value">{slot.day}, {slot.time}</span>
+              </div>
             </div>
 
             <div className="course-detail__price-block">
@@ -107,9 +147,31 @@ function CourseDetailPage() {
               </span>
             </div>
 
-            <button className="course-detail__enroll-btn">
-              Записаться на курс
-            </button>
+            {isEnrolled ? (
+              <div className="course-detail__enroll-block">
+                <div className="course-detail__enrolled-badge">
+                  ✓ Вы записаны на этот курс
+                </div>
+                <div className="course-detail__enroll-actions">
+                  <Link to="/profile" className="course-detail__profile-btn">
+                    Личный кабинет
+                  </Link>
+                  <button
+                    className="course-detail__unenroll-btn"
+                    onClick={handleUnenroll}
+                  >
+                    Отписаться
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                className="course-detail__enroll-btn"
+                onClick={handleEnroll}
+              >
+                Записаться на курс
+              </button>
+            )}
           </div>
         </div>
 

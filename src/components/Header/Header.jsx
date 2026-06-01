@@ -102,9 +102,9 @@ function Header() {
         <div className="header__actions">
           {isAuthenticated ? (
             <div className="header__user">
-              <span className="header__user-name">
+              <NavLink to="/profile" className="header__user-name">
                 👤 {user?.name}
-              </span>
+              </NavLink>
               <button className="header__btn header__btn--logout" onClick={handleLogout}>
                 Выйти
               </button>
