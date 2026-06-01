@@ -6,6 +6,7 @@ import teachersReducer from './teachersSlice'
 import authReducer from './authSlice'
 import enrollmentsReducer from './enrollmentsSlice'
 import notificationsReducer from './notificationsSlice'
+import chatReducer from './chatSlice'
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     teachers: teachersReducer,
     auth: authReducer,
     enrollments: enrollmentsReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    chat: chatReducer
   }
 })

@@ -9,6 +9,7 @@ import './CoursesList.css'
 function CoursesList({ limit }) {
   const dispatch = useDispatch()
   const { courses, loading, error } = useSelector(state => state.courses)
+  const { isAuthenticated } = useSelector(state => state.auth)
 
   const [showForm, setShowForm] = useState(false)
   const [editCourse, setEditCourse] = useState(null)
@@ -58,7 +59,7 @@ function CoursesList({ limit }) {
             Выберите курс и начните обучение уже сегодня
           </p>
         </div>
-        {!limit && (
+        {!limit && isAuthenticated && (
           <button
             className="courses-list__add-btn"
             onClick={() => { setEditCourse(null); setShowForm(true) }}
@@ -90,22 +91,24 @@ function CoursesList({ limit }) {
               </div>
             </Link>
 
-            <div className="course-card__actions">
-              <button
-                className="course-card__action-btn course-card__action-btn--edit"
-                onClick={(e) => handleEdit(e, course)}
-                title="Редактировать"
-              >
-                ✏️
-              </button>
-              <button
-                className="course-card__action-btn course-card__action-btn--delete"
-                onClick={(e) => handleDelete(e, course.id)}
-                title="Удалить"
-              >
-                🗑️
-              </button>
-            </div>
+            {isAuthenticated && (
+              <div className="course-card__actions">
+                <button
+                  className="course-card__action-btn course-card__action-btn--edit"
+                  onClick={(e) => handleEdit(e, course)}
+                  title="Редактировать"
+                >
+                  ✏️
+                </button>
+                <button
+                  className="course-card__action-btn course-card__action-btn--delete"
+                  onClick={(e) => handleDelete(e, course.id)}
+                  title="Удалить"
+                >
+                  🗑️
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
