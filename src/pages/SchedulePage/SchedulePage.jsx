@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { selectUserEnrollments } from '../../store/enrollmentsSlice'
+import { selectUserEnrollments } from '../../redux/slices/enrollmentsSlice'
 import './SchedulePage.css'
 
 const DAY_ORDER = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']

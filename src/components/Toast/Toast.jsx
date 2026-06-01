@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeNotification } from '../../store/notificationsSlice'
+import { removeNotification } from '../../redux/slices/notificationsSlice'
 import './Toast.css'
 
 function ToastItem({ id, text, type }) {

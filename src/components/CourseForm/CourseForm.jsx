@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addCourse, updateCourse } from '../../store/coursesSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { createCourse, updateCourse } from '../../redux/slices/coursesSlice'
+import { useNotify } from '../../hooks/useNotify'
 import './CourseForm.css'
 
 const emptyForm = {
@@ -20,6 +21,8 @@ const emptyForm = {
 
 function CourseForm({ course, onClose }) {
   const dispatch = useDispatch()
+  const notify = useNotify()
+  const { mutating } = useSelector(state => state.courses)
   const isEdit = Boolean(course)
 
   const [form, setForm] = useState(
@@ -47,7 +50,7 @@ function CourseForm({ course, onClose }) {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const newErrors = validate()
     if (Object.keys(newErrors).length > 0) {
@@ -64,13 +67,18 @@ function CourseForm({ course, onClose }) {
       topics: form.topics.split(',').map(t => t.trim()).filter(Boolean)
     }
 
-    if (isEdit) {
-      dispatch(updateCourse({ ...courseData, id: course.id }))
-    } else {
-      dispatch(addCourse(courseData))
+    try {
+      if (isEdit) {
+        await dispatch(updateCourse({ ...courseData, id: course.id })).unwrap()
+        notify(`Курс «${courseData.title}» обновлён`, 'success')
+      } else {
+        await dispatch(createCourse(courseData)).unwrap()
+        notify(`Курс «${courseData.title}» добавлен`, 'success')
+      }
+      onClose()
+    } catch (err) {
+      notify('Ошибка: ' + (err || 'не удалось сохранить курс'), 'error')
     }
-
-    onClose()
   }
 
   return (
@@ -148,7 +156,7 @@ function CourseForm({ course, onClose }) {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Цена (₽) *</label>
+              <label className="form-label">Цена (сом) *</label>
               <input
                 className={`form-input ${errors.price ? 'form-input--error' : ''}`}
                 name="price"
@@ -202,8 +210,8 @@ function CourseForm({ course, onClose }) {
             <button type="button" className="btn btn--cancel" onClick={onClose}>
               Отмена
             </button>
-            <button type="submit" className="btn btn--submit">
-              {isEdit ? 'Сохранить' : 'Добавить курс'}
+            <button type="submit" className="btn btn--submit" disabled={mutating}>
+              {mutating ? 'Сохранение...' : (isEdit ? 'Сохранить' : 'Добавить курс')}
             </button>
           </div>
         </form>

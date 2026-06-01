@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchNews } from '../../store/newsSlice'
+import { fetchNews } from '../../redux/slices/newsSlice'
 import Loader from '../Loader'
 import './NewsList.css'
 

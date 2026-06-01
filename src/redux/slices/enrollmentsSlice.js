@@ -1,37 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-const DAYS = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
-const TIMES = ['09:00 - 11:00', '11:30 - 13:30', '14:00 - 16:00', '16:30 - 18:30', '19:00 - 21:00']
-
-export const getScheduleSlot = (courseId) => {
-  const id = Number(courseId) || 0
-  return {
-    day: DAYS[id % DAYS.length],
-    time: TIMES[id % TIMES.length]
-  }
-}
+import { getScheduleSlot } from '../../utils/schedule'
 
 const STORAGE_KEY = 'enrollments'
 
 const loadFromStorage = () => {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-  } catch {
-    return []
-  }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') }
+  catch { return [] }
 }
 
 const saveToStorage = (items) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
 }
 
-const initialState = {
-  items: loadFromStorage()
-}
-
 const enrollmentsSlice = createSlice({
   name: 'enrollments',
-  initialState,
+  initialState: { items: loadFromStorage() },
   reducers: {
     enroll: (state, action) => {
       const { userId, course } = action.payload
@@ -39,7 +22,6 @@ const enrollmentsSlice = createSlice({
         i => i.userId === userId && i.courseId === course.id
       )
       if (already) return
-
       const slot = getScheduleSlot(course.id)
       state.items.push({
         id: Date.now(),

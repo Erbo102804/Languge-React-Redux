@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchTeachers } from '../../store/teachersSlice'
+import { fetchTeachers } from '../../redux/slices/teachersSlice'
 import Loader from '../Loader'
 import './TeachersList.css'
 

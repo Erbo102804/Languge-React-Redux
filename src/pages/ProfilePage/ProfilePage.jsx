@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import { selectUserEnrollments, unenroll } from '../../store/enrollmentsSlice'
-import { pushNotification } from '../../store/notificationsSlice'
+import { selectUserEnrollments, unenroll } from '../../redux/slices/enrollmentsSlice'
+import { pushNotification } from '../../redux/slices/notificationsSlice'
 import './ProfilePage.css'
 
 const DAY_ORDER = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
@@ -53,7 +53,7 @@ function ProfilePage() {
           </div>
           <div className="profile-card__stat">
             <span className="profile-card__stat-value">
-              {totalPrice.toLocaleString()} ₽
+              {totalPrice.toLocaleString()} сом
             </span>
             <span className="profile-card__stat-label">Стоимость</span>
           </div>
