@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
+import Toast from './components/Toast'
 import HomePage from './pages/HomePage'
 import StudentsPage from './pages/StudentsPage'
 import CoursesPage from './pages/CoursesPage'
@@ -8,12 +9,14 @@ import SchedulePage from './pages/SchedulePage'
 import AboutPage from './pages/AboutPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import ProfilePage from './pages/ProfilePage'
 import './App.css'
 
 function App() {
   return (
     <div className="app">
       <Header />
+      <Toast />
       <main className="main">
         <div className="container">
           <Routes>
@@ -25,6 +28,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
       </main>
